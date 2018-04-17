@@ -10,11 +10,11 @@ export class ChatService {
   constructor(private afs: AngularFirestore) { }
 
   cargarMensajes(){
-    this.itemCollection = this.afs.collection<Mensaje>('chats');
+    this.itemCollection = this.afs.collection<Mensaje>('chats', ref => ref.orderBy('fecha', "desc").limit(10));
     return this.itemCollection.valueChanges()
                               .map( (mensajes: Mensaje[]) => {
                                 console.log("Cargando los mensajes: ", mensajes );
-                                this.chats = mensajes;
+                                this.chats = mensajes.reverse();
                               });
   }
 
