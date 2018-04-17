@@ -22,10 +22,16 @@ export class ChatService {
   }
 
   login(proveedor :string) {
-    this.fauth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    if(proveedor == 'google'){
+      this.fauth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    }else{
+      this.fauth.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider());
+    }
+    
   }
 
   logout() {
+    this.usuario = {};
     this.fauth.auth.signOut();
   }
 
